@@ -1,7 +1,7 @@
 function Firework() {
   this.name = "Coral Pink Minimal Burst";
   this.particles = [];
-
+// Spawn a firework at (x, y) with intensity based on bass and treble
   this.spawn = function(x, y, bass = 128, treble = 128) {
     for (let i = 0; i < 32; i++) {
       let angle = random(TWO_PI);
@@ -27,12 +27,7 @@ function Firework() {
   };
 
   this.draw = function() {
-    // Soft center glow (optional, can remove if you want only random bursts)
-    // push();
-    // noStroke();
-    // fill(255, 182, 193, 80);
-    // ellipse(width / 2, height / 2, 120);
-    // pop();
+   
 
     if (sound && sound.isPlaying()) {
       let bass = fourier.getEnergy("bass");
@@ -44,7 +39,7 @@ function Firework() {
         this.spawn(rx, ry, bass, treble);
       }
     }
-
+    // TEST SPAWN
     // Draw and update particles
     for (let i = this.particles.length - 1; i >= 0; i--) {
       let p = this.particles[i];
