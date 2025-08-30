@@ -23,11 +23,11 @@ function Visualisations(){
 			if(visName == this.visuals[i].name){
 				this.selectedVisual = this.visuals[i];
 
-			if (this.selectedVisual && this.selectedVisual.setup) {
+				if (this.selectedVisual && this.selectedVisual.setup) {
 					this.selectedVisual.setup();
+				}
 			}
 		}
 	};
-}
 }
  

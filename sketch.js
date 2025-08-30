@@ -39,6 +39,7 @@ function setup(){
 	 vis.add(new Vibingballs());
 	 vis.add(new noisesteep());
 	 vis.add(new Firework());
+	 vis.add(new SpiralVisualizer());
 	
 	//support vars 
 	playbackButton=new PlaybackButton()
@@ -57,7 +58,7 @@ function draw(){
 		textSize(30);
 		fill(255);
 		textFont('Courier New');
-		text('press any key to start',width/2-200,height/2);
+		text('Press Start Button for The Menu ',width/2-200,height/2);
 		return;
 		pop();
 	}
@@ -71,8 +72,16 @@ function draw(){
 	
 }
 
-function mouseClicked(){
+function mousePressed(){
 	controls.mousePressed();
+}
+
+function mouseDragged(){
+	controls.mouseDragged();
+}
+
+function mouseReleased(){
+	controls.mouseReleased();
 }
 
 function keyPressed(){

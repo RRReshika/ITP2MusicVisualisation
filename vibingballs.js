@@ -1,41 +1,60 @@
-// --- Start of student-written code (original) ---
-
-//draw the waveform to the screen
-function Vibingballs()
-{
-	//vis name
+function Vibingballs() {
 	this.name = "Vibing Balls";
     var amp = new p5.Amplitude();
     this.amp = null;
 
-  this.setup = function () {
-    this.amp = new p5.Amplitude();
-  };
+    this.setup = function () {
+        this.amp = new p5.Amplitude();
+    };
 
     this.draw = function(){
-	background(0); 
-    var vol =amp.getLevel();
-   
-	push();
+        background(0); 
+        var vol = amp.getLevel();
+        
+        let colorScheme = controls.getColorScheme();
+        let lineThickness = controls.getLineThickness();
+        let visualSize = controls.getVisualizationSize();
+        let beatSensitivity = controls.getBeatSensitivity();
+        let animationSpeed = controls.getAnimationSpeed();
+        let songSpeed = controls.getSongSpeed();
+       
+        push();
+        translate(width/2, height/2);
+        scale(visualSize);
+        translate(-width/2, -height/2);
+        
+        for(var i = 0; i < windowWidth; i+=25){
+            for(var j = 0; j < windowHeight; j+=25){
 
-    
-	for(var i = 0; i < windowWidth; i+=50){
-        for(var j = 0; j < windowWidth; j+=50){
-
-            let t = map(i + j, 0, windowWidth + windowHeight, 0, 1); // mix factor
-            let r = lerp(255, 255, t); 
-            let g = lerp(105, 127, t); 
-            let b = lerp(180, 80, t);  
-    
-            fill(r, g, b, 200); 
-            let pulse = map(vol, 0, 1, 20, 60);
-            ellipse(i + random(vol*100), j + random(vol*150), pulse );
+                let r, g, b;
+                if (colorScheme === 'monochrome') {
+                    let t = map(i + j, 0, windowWidth + windowHeight, 0, 1);
+                    let grayValue = lerp(150, 255, t);
+                    r = grayValue;
+                    g = grayValue;
+                    b = grayValue;
+                } else {
+                    let t = map(i + j, 0, windowWidth + windowHeight, 0, 1);
+                    r = lerp(255, 255, t); 
+                    g = lerp(105, 127, t); 
+                    b = lerp(180, 80, t);  
+                }
+        
+                fill(r, g, b, 200); 
+                
+                if (lineThickness > 1) {
+                    stroke(r, g, b, 150);
+                    strokeWeight(lineThickness);
+                } else {
+                    noStroke();
+                }
+                
+                let pulse = map(vol * beatSensitivity, 0, 1, 25, 80);
+                let randomMovement = vol * 100 * beatSensitivity * animationSpeed;
+                ellipse(i + random(randomMovement), j + random(vol*150*animationSpeed), pulse);
+            }
         }
-            
-	};
-   
-    pop();
+       
+        pop();
+    }
 }
-}
-
-// --- End of student-written code (original) ---
